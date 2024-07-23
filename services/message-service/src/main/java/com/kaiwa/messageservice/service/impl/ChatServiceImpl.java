@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -76,15 +77,15 @@ public class ChatServiceImpl implements ChatService {
         Chat chat = chatMapper.toChat(chatRequest);
         chat.setRoomId(UUID.randomUUID().toString());
 
-        List<Chat> isRoomAvailableResponse = chatRepository
-                .findByUserSenderIdAndUserRecipientIdOrUserSenderIdAndUserRecipientId(
+        Chat isRoomAvailableResponse = chatRepository
+                .findFirstByUserSenderIdAndUserRecipientIdOrUserSenderIdAndUserRecipientId(
                         chatRequest.getUserSenderId(),
                         chatRequest.getUserRecipientId(),
                         chatRequest.getUserRecipientId(),
                         chatRequest.getUserSenderId());
 
-        if (!isRoomAvailableResponse.isEmpty()) {
-            chat.setRoomId(isRoomAvailableResponse.get(0).getRoomId());
+        if (Objects.nonNull(isRoomAvailableResponse)) {
+            chat.setRoomId(isRoomAvailableResponse.getRoomId());
         }
 
         Chat createdChatResponse = chatRepository.save(chat);
