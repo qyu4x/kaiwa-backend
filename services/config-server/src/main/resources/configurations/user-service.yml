@@ -2,8 +2,8 @@ server:
   port: 8000
   tomcat:
     threads:
-      max: 200
-      min-spare: 20
+      max: 1000
+      min-spare: 100
 
 spring:
   datasource:

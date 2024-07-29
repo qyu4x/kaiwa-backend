@@ -2,7 +2,7 @@ version: '3.9'
 services:
   kaiwa-postgres:
     image: postgres:14.11-alpine3.18
-    container_name: ms_kaiwa_postgres
+    container_name: ms_kaiwa_postgres_kurumi
     ports:
       - 5433:5432
     environment:
@@ -16,7 +16,7 @@ services:
 
   kaiwa-mongo:
     image: mongo
-    container_name: ms_kaiwa_mongo
+    container_name: ms_kaiwa_mongo_kurumi
     ports:
       - 27018:27017
     volumes:

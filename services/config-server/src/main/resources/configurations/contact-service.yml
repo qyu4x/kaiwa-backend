@@ -2,8 +2,8 @@ server:
   port: 8010
   tomcat:
     threads:
-      max: 200
-      min-spare: 20
+      max: 1000
+      min-spare: 100
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
